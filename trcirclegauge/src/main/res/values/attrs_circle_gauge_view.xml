@@ -1,0 +1,11 @@
+<resources>
+    <declare-styleable name="CircleGaugeView">
+        <attr name="trcgInitial" format="integer" />
+        <attr name="trcgWidth" format="float" />
+        <attr name="trcgHeight" format="float" />
+        <attr name="trcgBgColor" format="color" />
+        <attr name="trcgSweepColor" format="color" />
+        <attr name="trcgStrokeWidthBg" format="integer" />
+        <attr name="trcgStrokeWidthSweep" format="integer" />
+    </declare-styleable>
+</resources>
