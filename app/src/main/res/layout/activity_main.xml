@@ -13,8 +13,8 @@
 
 <tk.theradikalsoftware.trcirclegauge.CircleGaugeView
     android:id="@+id/circleGauge"
-    android:layout_width="150dp"
-    android:layout_height="150dp"
+    android:layout_width="fill_parent"
+    android:layout_height="250dp"
     app:trcgBgColor="#9E9E9E"
     app:trcgSweepColor="#FF5722"
     android:layout_centerHorizontal="true" />

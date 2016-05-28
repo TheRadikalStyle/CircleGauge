@@ -5,12 +5,9 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffXfermode;
 import android.graphics.RectF;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 
 public class CircleGaugeView extends View {
@@ -37,6 +34,7 @@ public class CircleGaugeView extends View {
         super(context, attrs);
         init(attrs, 0);
 
+        //Load attributes
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.CircleGaugeView, 0, 0);
 
         w = a.getFloat(R.styleable.CircleGaugeView_trcgWidth, 0);
@@ -49,7 +47,7 @@ public class CircleGaugeView extends View {
 
 
     private void init(AttributeSet attrs, int defStyle) {
-        // Load attributes or initialize variables
+        // LInitialize variables
         paintArc = new Paint();
         paintText = new Paint();
         paintCircle = new Paint();
@@ -91,16 +89,14 @@ public class CircleGaugeView extends View {
 
         oval.set(left, top, right, bottom);
 
-        //this is the background arc, it remains constant
-        canvas.drawArc(oval, 180, 180, false, paintArc);
+        canvas.drawArc(oval, 180, 180, false, paintArc); //ARC background
 
 
         //LOAD BACKGROUND COLOR
         paintArc.setStrokeWidth(sweepStroke);
         paintArc.setStrokeCap(Paint.Cap.ROUND);
         paintArc.setColor(sweepColor);
-        //this is the red arc whichhas its sweep argument manipulated by on touch
-        canvas.drawArc(oval, 180, sweep, false, paintArc);
+        canvas.drawArc(oval, 180, sweep, false, paintArc); //ARC progress background
         //endregion
 
         //region CIRCLE CODE
@@ -124,9 +120,6 @@ public class CircleGaugeView extends View {
         //paintText.setTextSize(25);
         //canvas.drawText("$"+ GetValue(), w/2, h/2, paintText);
         //endregion
-
-        //Log.d("Canvas", "Ancho: " + w + " Alto: " + h);
-        //canvas.drawColor(Color.parseColor("#ffffff"), PorterDuff.Mode.CLEAR);
     }
 
     public void SetSweetColor(String color){
