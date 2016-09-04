@@ -30,11 +30,11 @@ public class MainActivity extends AppCompatActivity {
                             public void run() {
                                 gaugeView.SetValue(x);
                                 if(x > 0 && x <= 50){
-                                    gaugeView.SetSweetColor("#4CAF50");
+                                    gaugeView.SetSweepColor("#4CAF50");
                                 }else if(x > 51 && x <= 80){
-                                    gaugeView.SetSweetColor("#FFC107");
+                                    gaugeView.SetSweepColor("#FFC107");
                                 }else if(x > 81 && x <= 120){
-                                    gaugeView.SetSweetColor("#F44336");
+                                    gaugeView.SetSweepColor("#F44336");
                                 }
                                 Log.d("THREAD", "DIBUJA: " + x);
                             }

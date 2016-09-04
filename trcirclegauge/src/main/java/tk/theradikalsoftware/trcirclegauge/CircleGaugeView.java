@@ -1,5 +1,12 @@
 package tk.theradikalsoftware.trcirclegauge;
 
+/*
+*   03/09/2016 - 19:04
+*   David Ochoa Gutierrez
+*   NL - MX
+*/
+
+
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -12,18 +19,18 @@ import android.view.View;
 
 public class CircleGaugeView extends View {
     Paint paintArc;
-    Paint paintText;
-    Paint paintCircle;
-    float w, h, r; // Width / Height / Radius
+    float w, h; // Width / Height
 
     float center_x, center_y;
-    final RectF oval = new RectF();
+    final RectF rectF = new RectF();
     float sweep; //Color of draw on background
     float left, right;
     int bgColor;
     int sweepColor;
     int sweepStroke;
     int bgStroke;
+    int arcInitial;
+    int arcFinal;
 
     public CircleGaugeView(Context context) {
         super(context);
@@ -43,34 +50,33 @@ public class CircleGaugeView extends View {
         sweepColor = a.getColor(R.styleable.CircleGaugeView_trcgSweepColor, ContextCompat.getColor(context, android.R.color.holo_red_dark));
         bgStroke = a.getInteger(R.styleable.CircleGaugeView_trcgStrokeWidthBg, 35);
         sweepStroke = a.getInteger(R.styleable.CircleGaugeView_trcgStrokeWidthSweep, 35);
+        arcInitial = a.getInteger(R.styleable.CircleGaugeView_trcgArcInitial, 180);
+        arcFinal = a.getInteger(R.styleable.CircleGaugeView_trcgArcFinal, 180);
     }
 
 
     private void init(AttributeSet attrs, int defStyle) {
-        // LInitialize variables
+        // Initialize variables
         paintArc = new Paint();
-        paintText = new Paint();
-        paintCircle = new Paint();
-        //rectF = new RectF(50, 20, 100, 80);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-
         if(w == 0)
             w = getWidth();
         if(h == 0)
             h = getHeight();
 
-        //region ARC CODE
         /* DRAW ARC */
         float radius;
 
         if (w > h) {
-            radius = h / 3;
+            //landscape
+            radius = h / 2;
         } else {
-            radius = h / 4;
+            //portrait
+            radius = w / 2;
         }
 
         paintArc.setAntiAlias(true);
@@ -82,52 +88,46 @@ public class CircleGaugeView extends View {
         center_x = w / 2;
         center_y = h / 2;
 
-        left = center_x - radius;
-        float top = center_y - radius;
-        right = center_x + radius;
-        float bottom = center_y + radius;
+        left = center_x - radius + bgStroke;
+        float top = center_y - radius + bgStroke;
+        right = center_x + radius - bgStroke;
+        float bottom = center_y + radius - bgStroke;
 
-        oval.set(left, top, right, bottom);
+        rectF.set(left, top, right, bottom);
+        //canvas.drawRect(rectF, paintArc);  //DEBUG: draw the rectangule host for the arc
+        canvas.drawArc(rectF, arcInitial, arcFinal, false, paintArc); //ARC background //180,180
 
-        canvas.drawArc(oval, 180, 180, false, paintArc); //ARC background
+        /*
+        DEBUG LOG
+        Log.d("CIRCLEGAUGE", "width:"+w+" height:"+h+"radius:"+radius );
+        Log.d("CIRCLEGAUGE", "top:"+top+" bottom:"+bottom+" left:"+left+" right:"+right );
+        Log.d("CIRCLEGAUGE", "centerX: "+center_x+" centerY:" +center_y );*/
 
-
-        //LOAD BACKGROUND COLOR
+        //LOAD BACKGROUND COLOR (Background color)
         paintArc.setStrokeWidth(sweepStroke);
         paintArc.setStrokeCap(Paint.Cap.ROUND);
         paintArc.setColor(sweepColor);
-        canvas.drawArc(oval, 180, sweep, false, paintArc); //ARC progress background
-        //endregion
-
-        //region CIRCLE CODE
-        /* DRAW CIRCLE */
-
-        //paintCircle.setStyle(Paint.Style.FILL);
-        //paintCircle.setColor(Color.CYAN);
-        //canvas.drawPaint(paintCircle);
-        // Use Color.parseColor to define HTML colors
-        //paintCircle.setColor(Color.parseColor("#CD5C5C"));
-        //canvas.drawCircle(w / 2, h / 2, (radius-10), paintCircle);
-
-        //endregion
-
-        //region TEXT PRINCIPAL
-        //paint.setColor(Color.WHITE);
-        //paint.setStyle(Paint.Style.FILL);
-        //canvas.drawPaint(paint);
-
-        //paintText.setColor(Color.BLACK);
-        //paintText.setTextSize(25);
-        //canvas.drawText("$"+ GetValue(), w/2, h/2, paintText);
-        //endregion
+        canvas.drawArc(rectF, 180, sweep, false, paintArc); //ARC progress background //sipongo true dibuja tipo manecillas
     }
 
-    public void SetSweetColor(String color){
+    /* Public methods */
+    public void SetSweepColor(String color){
         sweepColor = Color.parseColor(color);
+    }
+    public void SetArcBgColor(String color){ bgStroke = Color.parseColor(color); }
+    public void SetArcWidth(int width){
+        bgStroke = width;
+    }
+    public void SetArcSweepWidth(int width){
+        sweepStroke = width;
     }
     public void SetValue(int val){
         sweep = val;
         invalidate();
+    }
+    public void SetAngles(int startAng, int finalAng){
+        arcInitial = startAng;
+        arcFinal = finalAng;
     }
     public float GetValue(){
         return sweep;

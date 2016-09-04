@@ -5,17 +5,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin0"
+    android:paddingLeft="@dimen/activity_horizontal_margin0"
+    android:paddingRight="@dimen/activity_horizontal_margin0"
+    android:paddingTop="@dimen/activity_vertical_margin0"
     tools:context="tk.theradikalsoftware.circlegauge.MainActivity">
 
-<tk.theradikalsoftware.trcirclegauge.CircleGaugeView
+    <tk.theradikalsoftware.trcirclegauge.CircleGaugeView
     android:id="@+id/circleGauge"
-    android:layout_width="fill_parent"
-    android:layout_height="250dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     app:trcgBgColor="#9E9E9E"
     app:trcgSweepColor="#FF5722"
+    app:trcgArcInitial="180"
+    app:trcgArcFinal="360"
     android:layout_centerHorizontal="true" />
+
 </RelativeLayout>
