@@ -1,5 +1,5 @@
 # CircleGauge
 
-Android library for usa a circle gauge on projects
+Circle Gauge
+An Android Library for draw a simple gauge on your apps
 
-~ NO USABLE YET

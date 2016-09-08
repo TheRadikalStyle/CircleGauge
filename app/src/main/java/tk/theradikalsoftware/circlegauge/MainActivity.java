@@ -36,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
                                 }else if(x > 81 && x <= 120){
                                     gaugeView.SetSweepColor("#F44336");
                                 }
-                                Log.d("THREAD", "DIBUJA: " + x);
                             }
                         });
                         Thread.sleep(50);

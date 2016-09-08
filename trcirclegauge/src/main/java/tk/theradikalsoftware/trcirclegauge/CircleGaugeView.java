@@ -92,6 +92,12 @@ public class CircleGaugeView extends View {
         float top = center_y - radius + bgStroke;
         right = center_x + radius - bgStroke;
         float bottom = center_y + radius - bgStroke;
+        /*if(arcFinal >180){ //posible solución para dibujar media luna
+            bottom = center_y + radius - bgStroke;
+        }else{
+            bottom = center_y;
+        }*/
+
 
         rectF.set(left, top, right, bottom);
         //canvas.drawRect(rectF, paintArc);  //DEBUG: draw the rectangule host for the arc
